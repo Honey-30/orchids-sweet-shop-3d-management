@@ -102,6 +102,7 @@ function SweetCard({
             src={sweet.image_url}
             alt={sweet.name}
             fill
+            unoptimized
             className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
