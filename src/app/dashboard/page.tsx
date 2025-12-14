@@ -419,7 +419,7 @@ function AddEditModal({
             <motion.button
               type="submit"
               disabled={saving}
-              className="flex-1 py-3.5 bg-gradient-gold rounded-xl font-medium text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex-1 py-3.5 bg-gradient-gold rounded-xl font-medium text-white hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
             >
@@ -512,7 +512,7 @@ function RestockModal({
             <motion.button
               type="submit"
               disabled={restocking}
-              className="flex-1 py-3.5 bg-gradient-gold rounded-xl font-medium text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex-1 py-3.5 bg-gradient-gold rounded-xl font-medium text-white hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
             >
@@ -729,7 +729,7 @@ export default function DashboardPage() {
           {isAdmin && (
             <motion.button
               onClick={() => setShowAddModal(true)}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-gold rounded-xl font-medium text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.4)] transition-all"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-gold rounded-xl font-medium text-white hover:shadow-[0_0_40px_rgba(212,175,55,0.4)] transition-all"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -827,7 +827,7 @@ export default function DashboardPage() {
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                 selectedCategory === category
-                  ? "bg-gradient-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+                  ? "bg-gradient-gold text-white shadow-[0_0_20px_rgba(212,175,55,0.3)]"
                   : "glass-light text-white/60 hover:text-white hover:bg-white/5"
               }`}
               whileHover={{ scale: 1.02 }}
