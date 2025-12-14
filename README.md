@@ -31,6 +31,8 @@ A premium confectionery e-commerce platform built with Next.js, Supabase, and mo
 - Supabase account
 - npm/yarn/pnpm/bun
 
+**Note**: This project uses `legacy-peer-deps=true` in `.npmrc` to resolve peer dependency conflicts between React 19 and some packages.
+
 ### Installation
 
 1. Clone the repository:
@@ -87,7 +89,9 @@ Refer to your database schema files or contact the administrator for the SQL mig
 
 3. Import your Git repository
 
-4. Configure environment variables in Vercel:
+4. **Important**: Vercel will automatically use the `.npmrc` file to handle dependency conflicts
+
+5. Configure environment variables in Vercel:
    - Go to Project Settings → Environment Variables
    - Add all variables from `.env.local`:
      - `NEXT_PUBLIC_SUPABASE_URL`
@@ -95,7 +99,7 @@ Refer to your database schema files or contact the administrator for the SQL mig
      - `SUPABASE_SERVICE_ROLE_KEY`
      - `JWT_SECRET`
 
-5. Deploy! Vercel will automatically build and deploy your application.
+6. Deploy! Vercel will automatically build and deploy your application.
 
 ### Environment Variables in Vercel
 
