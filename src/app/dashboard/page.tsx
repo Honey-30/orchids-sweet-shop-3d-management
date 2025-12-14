@@ -132,7 +132,7 @@ function SweetCard({
             <Candy className="w-20 h-20 text-white/10" />
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         
         <div className="absolute top-4 left-4">
           <motion.span 
