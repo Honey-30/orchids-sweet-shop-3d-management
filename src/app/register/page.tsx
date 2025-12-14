@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { Candy, Eye, EyeOff, ArrowLeft, Loader2, Check } from "lucide-react"
+import { Crown, Eye, EyeOff, ArrowLeft, Loader2, Check } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
 
@@ -44,67 +44,71 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
-      <div className="absolute top-10 right-10 w-72 h-72 bg-purple-500/20 rounded-full blur-[100px]" />
-      <div className="absolute bottom-10 left-20 w-96 h-96 bg-pink-500/15 rounded-full blur-[120px]" />
-      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[150px]" />
+      <div className="absolute top-10 right-10 w-72 h-72 bg-[#D4AF37]/10 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-10 left-20 w-96 h-96 bg-[#D4AF37]/8 rounded-full blur-[140px] animate-pulse" style={{ animationDelay: '1.5s' }} />
+      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[160px] animate-pulse" style={{ animationDelay: '3s' }} />
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="relative w-full max-w-md"
       >
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors mb-10"
+          style={{ fontFamily: "'Inter', sans-serif" }}
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to home
+          Return to home
         </Link>
 
-        <div className="glass rounded-3xl p-8 md:p-10">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center">
-              <Candy className="w-6 h-6 text-white" />
+        <div className="glass-premium rounded-2xl p-10 md:p-12 border border-white/10">
+          <div className="flex items-center gap-4 mb-10">
+            <div className="w-14 h-14 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center">
+              <Crown className="w-7 h-7 text-[#D4AF37]" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-                Create Account
+              <h1 className="text-3xl font-bold text-white tracking-tight" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                Join Us
               </h1>
-              <p className="text-sm text-white/50">Join the sweet experience</p>
+              <p className="text-sm text-white/40 mt-1" style={{ fontFamily: "'Inter', sans-serif" }}>Create your membership</p>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">
+              <label className="block text-sm font-medium text-white/60 mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Full Name
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 focus:ring-1 focus:ring-pink-500/50 transition-all"
-                placeholder="John Doe"
+                className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder:text-white/25 focus:outline-none focus:border-[#D4AF37]/50 focus:ring-1 focus:ring-[#D4AF37]/30 transition-all"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+                placeholder="Your name"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">
+              <label className="block text-sm font-medium text-white/60 mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Email Address
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 focus:ring-1 focus:ring-pink-500/50 transition-all"
-                placeholder="you@example.com"
+                className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder:text-white/25 focus:outline-none focus:border-[#D4AF37]/50 focus:ring-1 focus:ring-[#D4AF37]/30 transition-all"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+                placeholder="your@email.com"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">
+              <label className="block text-sm font-medium text-white/60 mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Password
               </label>
               <div className="relative">
@@ -112,26 +116,27 @@ export default function RegisterPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 focus:ring-1 focus:ring-pink-500/50 transition-all pr-12"
+                  className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder:text-white/25 focus:outline-none focus:border-[#D4AF37]/50 focus:ring-1 focus:ring-[#D4AF37]/30 transition-all pr-12"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/50 transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
               
-              <div className="mt-3 space-y-2">
+              <div className="mt-4 space-y-2">
                 {passwordRequirements.map((req, i) => (
                   <div key={i} className="flex items-center gap-2 text-xs">
-                    <div className={`w-4 h-4 rounded-full flex items-center justify-center ${req.met ? 'bg-green-500/20 text-green-400' : 'bg-white/5 text-white/30'}`}>
+                    <div className={`w-4 h-4 rounded-full flex items-center justify-center transition-colors ${req.met ? 'bg-[#D4AF37]/20 text-[#D4AF37]' : 'bg-white/[0.05] text-white/30'}`}>
                       {req.met && <Check className="w-3 h-3" />}
                     </div>
-                    <span className={req.met ? 'text-white/70' : 'text-white/40'}>{req.text}</span>
+                    <span className={`transition-colors ${req.met ? 'text-white/60' : 'text-white/30'}`} style={{ fontFamily: "'Inter', sans-serif" }}>{req.text}</span>
                   </div>
                 ))}
               </div>
@@ -140,7 +145,8 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-medium text-white hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-4 bg-[#D4AF37] rounded-xl font-medium text-black hover:bg-[#C9A557] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(212,175,55,0.25)] mt-8"
+              style={{ fontFamily: "'Inter', sans-serif" }}
             >
               {isLoading ? (
                 <>
@@ -153,9 +159,9 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-white/50 mt-6">
+          <p className="text-center text-sm text-white/40 mt-8" style={{ fontFamily: "'Inter', sans-serif" }}>
             Already have an account?{" "}
-            <Link href="/login" className="text-pink-400 hover:text-pink-300 transition-colors">
+            <Link href="/login" className="text-[#D4AF37] hover:text-[#C9A557] transition-colors font-medium">
               Sign in
             </Link>
           </p>
