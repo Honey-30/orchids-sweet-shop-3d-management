@@ -244,7 +244,7 @@ function SweetCard({
           <motion.button
             onClick={handlePurchase}
             disabled={sweet.quantity === 0 || purchasing}
-            className="flex-1 py-2.5 bg-gradient-gold rounded-lg font-medium text-black text-sm hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="flex-1 py-2.5 bg-gradient-gold rounded-lg font-bold text-black text-sm hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -253,7 +253,7 @@ function SweetCard({
             ) : (
               <>
                 <ShoppingBag className="w-4 h-4" />
-                Purchase
+                <span className="font-bold">Purchase</span>
               </>
             )}
           </motion.button>
