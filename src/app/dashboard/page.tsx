@@ -116,7 +116,7 @@ function SweetCard({
       exit={{ opacity: 0, scale: 0.95 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="group relative rounded-2xl overflow-hidden glass luxury-border"
+      className="group relative rounded-2xl overflow-hidden glass-strong luxury-border"
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-black/20">
         {sweet.image_url ? (
@@ -132,7 +132,7 @@ function SweetCard({
             <Candy className="w-20 h-20 text-white/10" />
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
         
         <div className="absolute top-4 left-4">
           <motion.span 
