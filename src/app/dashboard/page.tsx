@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { 
   Candy, Search, Filter, LogOut, ShoppingBag, Package, 
   Plus, X, Edit2, Trash2, RefreshCw, Loader2, User,
-  ChevronDown, Minus
+  ChevronDown, Minus, Crown, Sparkles
 } from "lucide-react"
 import { toast } from "sonner"
 import { Sweet } from "@/lib/types"
@@ -25,34 +25,56 @@ function Navbar() {
   }
   
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-strong border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6 py-5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center">
-              <Candy className="w-5 h-5 text-white" />
+          <motion.div 
+            className="flex items-center gap-3"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-gold blur-md opacity-50"></div>
+              <div className="relative w-11 h-11 rounded-xl bg-gradient-gold flex items-center justify-center shadow-lg">
+                <Candy className="w-6 h-6 text-black" />
+              </div>
             </div>
-            <span className="text-xl font-bold text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Luxe Sweet Shop
-            </span>
-          </div>
+            <div>
+              <span className="text-xl font-bold text-white tracking-tight" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                Maison du Chocolat
+              </span>
+              <p className="text-[10px] text-white/40 tracking-[0.2em] uppercase font-medium">Premium Confections</p>
+            </div>
+          </motion.div>
           
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full glass">
-              <User className="w-4 h-4 text-pink-400" />
-              <span className="text-sm text-white">{user?.name}</span>
-              {isAdmin && (
-                <span className="px-2 py-0.5 text-[10px] bg-amber-500/20 text-amber-400 rounded-full">
-                  Admin
-                </span>
-              )}
-            </div>
-            <button
-              onClick={handleLogout}
-              className="p-2.5 rounded-full glass hover:bg-white/10 transition-colors"
+            <motion.div 
+              className="hidden md:flex items-center gap-3 px-5 py-2.5 rounded-xl glass-light"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
             >
-              <LogOut className="w-5 h-5 text-white/70" />
-            </button>
+              <div className="w-8 h-8 rounded-lg bg-gradient-gold/20 flex items-center justify-center">
+                <User className="w-4 h-4 text-[#D4AF37]" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-white leading-none">{user?.name}</span>
+                {isAdmin && (
+                  <div className="flex items-center gap-1 mt-1">
+                    <Crown className="w-3 h-3 text-[#D4AF37]" />
+                    <span className="text-[10px] text-[#D4AF37] font-medium tracking-wide">ADMINISTRATOR</span>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+            <motion.button
+              onClick={handleLogout}
+              className="p-3 rounded-xl glass-light hover:bg-white/5 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <LogOut className="w-5 h-5 text-white/60" />
+            </motion.button>
           </div>
         </div>
       </div>
@@ -91,124 +113,151 @@ function SweetCard({
       layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
+      exit={{ opacity: 0, scale: 0.95 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="group relative rounded-3xl overflow-hidden glass"
+      className="group relative rounded-2xl overflow-hidden glass luxury-border"
     >
-      <div className="relative aspect-square overflow-hidden">
+      <div className="relative aspect-[4/5] overflow-hidden bg-black/20">
         {sweet.image_url ? (
           <Image
             src={sweet.image_url}
             alt={sweet.name}
             fill
             unoptimized
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover transition-all duration-700 group-hover:scale-105"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center">
-            <Candy className="w-16 h-16 text-white/20" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-black/40 flex items-center justify-center">
+            <Candy className="w-20 h-20 text-white/10" />
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         
         <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 text-xs font-medium rounded-full bg-white/10 backdrop-blur-sm text-white">
+          <motion.span 
+            className="px-3 py-1.5 text-[10px] font-medium tracking-wider uppercase rounded-lg glass-light text-white/80"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
             {sweet.category}
-          </span>
+          </motion.span>
         </div>
         
         {sweet.quantity === 0 && (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <span className="px-4 py-2 bg-red-500/20 text-red-400 rounded-full text-sm font-medium">
-              Out of Stock
-            </span>
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-red-500/20 flex items-center justify-center">
+                <Package className="w-6 h-6 text-red-400" />
+              </div>
+              <span className="px-4 py-1.5 bg-red-500/20 text-red-400 rounded-lg text-xs font-medium tracking-wide uppercase">
+                Out of Stock
+              </span>
+            </div>
           </div>
         )}
         
         <AnimatePresence>
           {isHovered && isAdmin && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               className="absolute top-4 right-4 flex gap-2"
             >
-              <button
+              <motion.button
                 onClick={() => onEdit(sweet)}
-                className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
+                className="p-2.5 rounded-lg glass-strong hover:bg-[#D4AF37]/20 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <Edit2 className="w-4 h-4 text-white" />
-              </button>
-              <button
+                <Edit2 className="w-4 h-4 text-[#D4AF37]" />
+              </motion.button>
+              <motion.button
                 onClick={() => onDelete(sweet.id)}
-                className="p-2 rounded-full bg-red-500/20 backdrop-blur-sm hover:bg-red-500/30 transition-colors"
+                className="p-2.5 rounded-lg glass-strong hover:bg-red-500/20 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Trash2 className="w-4 h-4 text-red-400" />
-              </button>
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
       
-      <div className="p-5">
-        <div className="flex items-start justify-between mb-3">
-          <div>
-            <h3 className="font-semibold text-white text-lg">{sweet.name}</h3>
-            <p className="text-sm text-white/50 line-clamp-1">{sweet.description}</p>
-          </div>
-          <span className="text-xl font-bold text-pink-400">${sweet.price}</span>
+      <div className="p-6">
+        <div className="mb-4">
+          <h3 className="font-semibold text-white text-lg mb-1 tracking-tight" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            {sweet.name}
+          </h3>
+          <p className="text-sm text-white/40 line-clamp-2 leading-relaxed">{sweet.description}</p>
         </div>
         
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-xs text-white/40">
-            {sweet.quantity} in stock
-          </span>
-          
-          {isAdmin && (
-            <button
-              onClick={() => onRestock(sweet.id, 10)}
-              className="flex items-center gap-1 text-xs text-amber-400 hover:text-amber-300 transition-colors"
-            >
-              <RefreshCw className="w-3 h-3" />
-              Restock +10
-            </button>
-          )}
+        <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/5">
+          <div className="flex items-baseline gap-2">
+            <span className="text-2xl font-bold text-[#D4AF37]" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              ${sweet.price}
+            </span>
+            <span className="text-xs text-white/30">USD</span>
+          </div>
+          <div className="text-right">
+            <div className="text-xs text-white/30 uppercase tracking-wider mb-0.5">Stock</div>
+            <div className="text-sm font-medium text-white">{sweet.quantity}</div>
+          </div>
         </div>
+        
+        {isAdmin && (
+          <motion.button
+            onClick={() => onRestock(sweet.id, 10)}
+            className="w-full mb-3 flex items-center justify-center gap-2 text-xs text-[#D4AF37] hover:text-[#F4E4B1] transition-colors py-2 rounded-lg glass-light hover:bg-[#D4AF37]/5"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            Restock +10 Units
+          </motion.button>
+        )}
         
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 glass rounded-xl px-3 py-2">
-            <button 
+          <div className="flex items-center gap-2 glass-light rounded-lg px-3 py-2">
+            <motion.button 
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="text-white/50 hover:text-white transition-colors"
+              className="text-white/40 hover:text-white transition-colors"
               disabled={quantity <= 1}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               <Minus className="w-4 h-4" />
-            </button>
+            </motion.button>
             <span className="w-8 text-center text-white font-medium">{quantity}</span>
-            <button 
+            <motion.button 
               onClick={() => setQuantity(Math.min(sweet.quantity, quantity + 1))}
-              className="text-white/50 hover:text-white transition-colors"
+              className="text-white/40 hover:text-white transition-colors"
               disabled={quantity >= sweet.quantity}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               <Plus className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
           
-          <button
+          <motion.button
             onClick={handlePurchase}
             disabled={sweet.quantity === 0 || purchasing}
-            className="flex-1 py-2.5 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-medium text-white text-sm hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="flex-1 py-2.5 bg-gradient-gold rounded-lg font-medium text-black text-sm hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             {purchasing ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               <>
                 <ShoppingBag className="w-4 h-4" />
-                Buy
+                Purchase
               </>
             )}
-          </button>
+          </motion.button>
         </div>
       </div>
     </motion.div>
@@ -251,7 +300,7 @@ function AddEditModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
@@ -259,28 +308,36 @@ function AddEditModal({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg glass rounded-3xl p-8"
+        className="w-full max-w-2xl glass-strong rounded-2xl p-8 shadow-2xl"
       >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
-            {sweet ? "Edit Sweet" : "Add New Sweet"}
-          </h2>
-          <button
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="text-3xl font-bold text-white mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              {sweet ? "Edit Product" : "Add New Product"}
+            </h2>
+            <p className="text-sm text-white/40">
+              {sweet ? "Update product details below" : "Enter product information"}
+            </p>
+          </div>
+          <motion.button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-white/10 transition-colors"
+            className="p-2.5 rounded-lg glass-light hover:bg-white/5 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <X className="w-5 h-5 text-white/70" />
-          </button>
+            <X className="w-5 h-5 text-white/60" />
+          </motion.button>
         </div>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-white/70 mb-2">Name</label>
+            <label className="block text-sm font-medium text-white/70 mb-2">Product Name</label>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 transition-all"
+              className="w-full px-4 py-3.5 rounded-xl glass-light text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 transition-all"
+              placeholder="e.g., Belgian Dark Truffle"
               required
             />
           </div>
@@ -290,47 +347,50 @@ function AddEditModal({
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 transition-all resize-none h-20"
+              className="w-full px-4 py-3.5 rounded-xl glass-light text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 transition-all resize-none h-24"
+              placeholder="Describe the product..."
             />
           </div>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-5">
             <div>
               <label className="block text-sm font-medium text-white/70 mb-2">Category</label>
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-pink-500/50 transition-all"
+                className="w-full px-4 py-3.5 rounded-xl glass-light text-white focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 transition-all"
               >
                 {categories.slice(1).map(cat => (
-                  <option key={cat} value={cat} className="bg-gray-900">{cat}</option>
+                  <option key={cat} value={cat} className="bg-[#0A0A0A]">{cat}</option>
                 ))}
               </select>
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">Price ($)</label>
+              <label className="block text-sm font-medium text-white/70 mb-2">Price (USD)</label>
               <input
                 type="number"
                 step="0.01"
                 min="0"
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 transition-all"
+                className="w-full px-4 py-3.5 rounded-xl glass-light text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 transition-all"
+                placeholder="0.00"
                 required
               />
             </div>
           </div>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">Quantity</label>
+              <label className="block text-sm font-medium text-white/70 mb-2">Stock Quantity</label>
               <input
                 type="number"
                 min="0"
                 value={formData.quantity}
                 onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 transition-all"
+                className="w-full px-4 py-3.5 rounded-xl glass-light text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 transition-all"
+                placeholder="0"
                 required
               />
             </div>
@@ -341,27 +401,31 @@ function AddEditModal({
                 type="url"
                 value={formData.image_url}
                 onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 transition-all"
+                className="w-full px-4 py-3.5 rounded-xl glass-light text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 transition-all"
                 placeholder="https://..."
               />
             </div>
           </div>
           
-          <div className="flex gap-3 pt-4">
-            <button
+          <div className="flex gap-3 pt-6">
+            <motion.button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 rounded-xl glass hover:bg-white/10 transition-colors text-white font-medium"
+              className="flex-1 py-3.5 rounded-xl glass-light hover:bg-white/5 transition-colors text-white font-medium"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
             >
               Cancel
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               type="submit"
               disabled={saving}
-              className="flex-1 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-medium text-white hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex-1 py-3.5 bg-gradient-gold rounded-xl font-medium text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
             >
-              {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : "Save"}
-            </button>
+              {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : "Save Changes"}
+            </motion.button>
           </div>
         </form>
       </motion.div>
@@ -394,7 +458,7 @@ function RestockModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
@@ -402,41 +466,59 @@ function RestockModal({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-sm glass rounded-3xl p-8"
+        className="w-full max-w-md glass-strong rounded-2xl p-8 shadow-2xl"
       >
-        <h2 className="text-xl font-bold text-white mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
-          Restock {sweet.name}
-        </h2>
-        <p className="text-sm text-white/50 mb-6">Current stock: {sweet.quantity}</p>
+        <div className="text-center mb-6">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-gold/20 flex items-center justify-center">
+            <RefreshCw className="w-8 h-8 text-[#D4AF37]" />
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            Restock Product
+          </h2>
+          <p className="text-sm text-white/40">
+            Add inventory for <span className="text-white font-medium">{sweet.name}</span>
+          </p>
+          <div className="mt-3 px-4 py-2 rounded-lg glass-light inline-block">
+            <span className="text-xs text-white/50">Current Stock: </span>
+            <span className="text-sm font-bold text-[#D4AF37]">{sweet.quantity}</span>
+          </div>
+        </div>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-white/70 mb-2">Add Quantity</label>
+            <label className="block text-sm font-medium text-white/70 mb-2">Quantity to Add</label>
             <input
               type="number"
               min="1"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 transition-all"
+              className="w-full px-4 py-3.5 rounded-xl glass-light text-white text-center text-lg font-bold placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 transition-all"
               required
             />
+            <p className="text-xs text-white/30 mt-2 text-center">
+              New total: {sweet.quantity + parseInt(quantity || "0")} units
+            </p>
           </div>
           
           <div className="flex gap-3">
-            <button
+            <motion.button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 rounded-xl glass hover:bg-white/10 transition-colors text-white font-medium"
+              className="flex-1 py-3.5 rounded-xl glass-light hover:bg-white/5 transition-colors text-white font-medium"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
             >
               Cancel
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               type="submit"
               disabled={restocking}
-              className="flex-1 py-3 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl font-medium text-white hover:shadow-[0_0_20px_rgba(251,191,36,0.3)] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex-1 py-3.5 bg-gradient-gold rounded-xl font-medium text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
             >
-              {restocking ? <Loader2 className="w-5 h-5 animate-spin" /> : "Restock"}
-            </button>
+              {restocking ? <Loader2 className="w-5 h-5 animate-spin" /> : "Confirm Restock"}
+            </motion.button>
           </div>
         </form>
       </motion.div>
@@ -524,7 +606,7 @@ export default function DashboardPage() {
       
       if (response.ok) {
         const data = await response.json()
-        toast.success(`Purchased ${quantity}x ${data.purchase.sweet_name} for $${data.purchase.total_amount.toFixed(2)}!`)
+        toast.success(`Purchased ${quantity}x ${data.purchase.sweet_name} for $${data.purchase.total_amount.toFixed(2)}`)
         fetchSweets()
       } else {
         const error = await response.json()
@@ -550,19 +632,19 @@ export default function DashboardPage() {
       })
       
       if (response.ok) {
-        toast.success(editingSweet ? "Sweet updated!" : "Sweet added!")
+        toast.success(editingSweet ? "Product updated successfully" : "Product added successfully")
         fetchSweets()
       } else {
         const error = await response.json()
         toast.error(error.message)
       }
     } catch {
-      toast.error("Failed to save sweet")
+      toast.error("Failed to save product")
     }
   }
   
   const handleDeleteSweet = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this sweet?")) return
+    if (!confirm("Are you sure you want to delete this product?")) return
     
     try {
       const response = await fetch(`/api/sweets/${id}`, {
@@ -571,14 +653,14 @@ export default function DashboardPage() {
       })
       
       if (response.ok) {
-        toast.success("Sweet deleted!")
+        toast.success("Product deleted successfully")
         fetchSweets()
       } else {
         const error = await response.json()
         toast.error(error.message)
       }
     } catch {
-      toast.error("Failed to delete sweet")
+      toast.error("Failed to delete product")
     }
   }
   
@@ -595,7 +677,7 @@ export default function DashboardPage() {
       
       if (response.ok) {
         const data = await response.json()
-        toast.success(`Restocked! New total: ${data.new_total}`)
+        toast.success(`Restocked successfully! New total: ${data.new_total} units`)
         fetchSweets()
       } else {
         const error = await response.json()
@@ -609,51 +691,69 @@ export default function DashboardPage() {
   if (isLoading || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-12 h-12 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto mb-4 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm text-white/40">Loading...</p>
+        </div>
       </div>
     )
   }
   
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background noise">
       <Navbar />
       
-      <div className="absolute top-0 left-0 w-full h-[500px] overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-pink-500/10 rounded-full blur-[100px]" />
-        <div className="absolute top-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]" />
+      <div className="absolute top-0 left-0 w-full h-[600px] overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[120px]" />
+        <div className="absolute top-40 right-20 w-[500px] h-[500px] bg-[#D4AF37]/3 rounded-full blur-[150px]" />
       </div>
       
-      <main className="relative max-w-7xl mx-auto px-6 pt-32 pb-20">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+      <main className="relative max-w-[1400px] mx-auto px-6 pt-32 pb-24">
+        <motion.div 
+          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Sweet Collection
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="w-5 h-5 text-[#D4AF37]" />
+              <span className="text-xs text-white/40 tracking-[0.2em] uppercase font-medium">Premium Collection</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              Artisan Confections
             </h1>
-            <p className="text-white/50">
-              {filteredSweets.length} premium sweets available
+            <p className="text-white/40 text-lg">
+              {filteredSweets.length} exquisite {filteredSweets.length === 1 ? 'product' : 'products'} available
             </p>
           </div>
           
           {isAdmin && (
-            <button
+            <motion.button
               onClick={() => setShowAddModal(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-medium text-white hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-gold rounded-xl font-medium text-black hover:shadow-[0_0_40px_rgba(212,175,55,0.4)] transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <Plus className="w-5 h-5" />
-              Add Sweet
-            </button>
+              Add Product
+            </motion.button>
           )}
-        </div>
+        </motion.div>
         
-        <div className="flex flex-col lg:flex-row gap-4 mb-10">
+        <motion.div 
+          className="flex flex-col lg:flex-row gap-4 mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
           <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
             <input
               type="text"
-              placeholder="Search sweets..."
+              placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-pink-500/50 transition-all"
+              className="w-full pl-14 pr-5 py-4 rounded-xl glass-light text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 transition-all"
             />
           </div>
           
@@ -661,11 +761,11 @@ export default function DashboardPage() {
             <div className="relative">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-5 py-3.5 glass rounded-xl hover:bg-white/10 transition-colors"
+                className="flex items-center gap-3 px-6 py-4 glass-light rounded-xl hover:bg-white/5 transition-all"
               >
-                <Filter className="w-5 h-5 text-white/70" />
-                <span className="text-white">Filters</span>
-                <ChevronDown className={`w-4 h-4 text-white/50 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+                <Filter className="w-5 h-5 text-white/60" />
+                <span className="text-white font-medium">Filters</span>
+                <ChevronDown className={`w-4 h-4 text-white/40 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
               </button>
               
               <AnimatePresence>
@@ -674,72 +774,92 @@ export default function DashboardPage() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 top-full mt-2 w-72 glass rounded-2xl p-5 z-20"
+                    className="absolute right-0 top-full mt-3 w-80 glass-strong rounded-2xl p-6 z-20 shadow-2xl"
                   >
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-white/70 mb-3">Price Range</label>
+                    <div className="mb-6">
+                      <label className="block text-sm font-medium text-white/70 mb-4">Price Range</label>
                       <div className="flex items-center gap-3">
                         <input
                           type="number"
                           value={priceRange[0]}
                           onChange={(e) => setPriceRange([parseInt(e.target.value) || 0, priceRange[1]])}
-                          className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-pink-500/50"
+                          className="w-full px-4 py-3 rounded-lg glass-light text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50"
                           placeholder="Min"
                         />
-                        <span className="text-white/30">-</span>
+                        <span className="text-white/30">—</span>
                         <input
                           type="number"
                           value={priceRange[1]}
                           onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value) || 100])}
-                          className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-pink-500/50"
+                          className="w-full px-4 py-3 rounded-lg glass-light text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50"
                           placeholder="Max"
                         />
                       </div>
                     </div>
                     
-                    <button
+                    <motion.button
                       onClick={() => {
                         setPriceRange([0, 100])
                         setSelectedCategory("All")
                         setSearchQuery("")
                       }}
-                      className="w-full py-2 text-sm text-pink-400 hover:text-pink-300 transition-colors"
+                      className="w-full py-2.5 text-sm text-[#D4AF37] hover:text-[#F4E4B1] transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      Reset Filters
-                    </button>
+                      Reset All Filters
+                    </motion.button>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </div>
-        </div>
+        </motion.div>
         
-        <div className="flex gap-3 mb-10 overflow-x-auto pb-2 scrollbar-hide">
+        <motion.div 
+          className="flex gap-3 mb-12 overflow-x-auto pb-2 scrollbar-hide"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           {categories.map(category => (
-            <button
+            <motion.button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+              className={`px-6 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                 selectedCategory === category
-                  ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white"
-                  : "glass text-white/70 hover:text-white hover:bg-white/10"
+                  ? "bg-gradient-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+                  : "glass-light text-white/60 hover:text-white hover:bg-white/5"
               }`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               {category}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
         
         {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="w-12 h-12 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
+          <div className="flex items-center justify-center py-32">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+              <p className="text-sm text-white/40">Loading products...</p>
+            </div>
           </div>
         ) : filteredSweets.length === 0 ? (
-          <div className="text-center py-20">
-            <Package className="w-16 h-16 mx-auto mb-4 text-white/20" />
-            <h3 className="text-xl font-semibold text-white mb-2">No sweets found</h3>
-            <p className="text-white/50">Try adjusting your filters or search query</p>
-          </div>
+          <motion.div 
+            className="text-center py-32"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl glass-light flex items-center justify-center">
+              <Package className="w-10 h-10 text-white/20" />
+            </div>
+            <h3 className="text-2xl font-semibold text-white mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              No Products Found
+            </h3>
+            <p className="text-white/40">Try adjusting your filters or search criteria</p>
+          </motion.div>
         ) : (
           <motion.div 
             layout
