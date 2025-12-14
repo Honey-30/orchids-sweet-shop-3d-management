@@ -13,7 +13,7 @@ import { toast } from "sonner"
 import { Sweet } from "@/lib/types"
 import Image from "next/image"
 
-const categories = ["All", "Chocolate", "Pastry", "Candy", "Ice Cream", "Fudge"]
+const categories = ["All", "Milk-based", "Fried", "Dry"]
 
 function Navbar() {
   const { user, logout, isAdmin } = useAuth()
